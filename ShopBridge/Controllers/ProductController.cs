@@ -1,4 +1,6 @@
 ﻿using ShopBridge.Models;
+using ShopBridge.Services.Infrastructure;
+using ShopBridge.Services.Repository;
 
 using System;
 using System.Collections.Generic;
@@ -16,18 +18,18 @@ namespace ShopBridge.Controllers
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         DataBaseContext db = new DataBaseContext();
-        [HttpGet]
 
+        static readonly IProductRepository productRepository = new ProductRepository(new DataBaseContext());
+        [HttpGet]
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await db.Products.ToListAsync();
+            return await productRepository.GetAllProducts();
         }
         [HttpGet]
 
         public async Task<Product> GetProduct(int id)
         {
-            var product = (from item in db.Products where item.ProductID == id select item).SingleOrDefaultAsync();
-            return await product;
+            return await productRepository.GetProductID(id);
         }
         [HttpPost]
         public async Task<HttpResponseMessage> AddProduct(Product product)
@@ -35,17 +37,19 @@ namespace ShopBridge.Controllers
             var errors = new List<string>();
             try
             {
+                HttpStatusCode httpStatusCode = await productRepository.AddProduct(product);
 
-                if (!string.IsNullOrEmpty(product.ProductName))
+                if (HttpStatusCode.OK == httpStatusCode)
                 {
-                    db.Products.Add(product);
-                    await db.SaveChangesAsync();
                     return Request.CreateResponse(HttpStatusCode.Created, "Product Add Successfully");
                 }
-                else
+                else if (HttpStatusCode.BadRequest == httpStatusCode)
                 {
                     errors.Add(product.ProductName + " : is Mandatory");
                     return Request.CreateResponse(HttpStatusCode.BadRequest, errors);
+                }
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
             }
             catch (Exception ex)
@@ -59,16 +63,19 @@ namespace ShopBridge.Controllers
         {
             try
             {
-                var productFromDb = db.Products.Where(x => x.ProductID == product.ProductID);
-                if (productFromDb.Count() > 0)
+                HttpStatusCode httpStatusCode = await productRepository.UpdateProduct(product);
+
+                if (HttpStatusCode.OK == httpStatusCode)
                 {
-                    db.Entry(product).State = System.Data.Entity.EntityState.Modified;
-                    await db.SaveChangesAsync();
                     return Request.CreateResponse(HttpStatusCode.OK, "Product Updated Successfully");
+                }
+                else if (HttpStatusCode.BadRequest == httpStatusCode)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "ProductID Mandatory");
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.BadRequest, "ProductID Mandatory");
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
                 }
 
             }
@@ -83,18 +90,22 @@ namespace ShopBridge.Controllers
         {
             try
             {
-                Product product = await db.Products.FindAsync(id);
-                if (product != null)
+                HttpStatusCode httpStatusCode = await productRepository.DeleteProduct(id);
+
+                if (HttpStatusCode.OK == httpStatusCode)
                 {
-                    db.Products.Remove(product);
-                    await db.SaveChangesAsync();
+                    
                     return Request.CreateResponse(HttpStatusCode.OK, "Product Deleted Successfully");
                 }
-                else
+                else if (HttpStatusCode.BadRequest == httpStatusCode)
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest, "Product Not Found");
                 }
-
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+                
             }
             catch (Exception ex)
             {

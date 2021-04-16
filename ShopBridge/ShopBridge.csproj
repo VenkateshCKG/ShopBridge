@@ -115,6 +115,8 @@
     <Compile Include="Models\DataBaseContext.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Infrastructure\IProductRepository.cs" />
+    <Compile Include="Services\Repository\ProductRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
