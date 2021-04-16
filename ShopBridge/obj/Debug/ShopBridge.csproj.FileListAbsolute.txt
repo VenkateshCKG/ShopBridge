@@ -47,3 +47,4 @@ D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Debug\ShopBridge.dll
 D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Debug\ShopBridge.pdb
 D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Debug\ShopBridge.Migrations.InitialDBCreate.resources
 D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Debug\ShopBridge.csproj.GenerateResource.cache
+D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Debug\ShopBridge.csprojAssemblyReference.cache

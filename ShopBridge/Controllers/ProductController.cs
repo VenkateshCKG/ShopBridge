@@ -2,9 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace ShopBridge.Controllers
@@ -13,20 +15,27 @@ namespace ShopBridge.Controllers
     {
         DataBaseContext db = new DataBaseContext();
 
+        //[HttpGet]
+
+        //public IEnumerable<Product> GetProducts()
+        //{
+        //    return db.Products.ToList();
+        //}
         [HttpGet]
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            return db.Products.ToList();
+            return await db.Products.ToListAsync();
         }
         [HttpGet]
 
-        public Product GetProduct(int id)
+        public async Task<Product> GetProduct(int id)
         {
-            return db.Products.Find(id);
+            var product = (from item in db.Products where item.ProductID == id select item).SingleOrDefaultAsync();
+            return await product;
         }
         [HttpPost]
-        public HttpResponseMessage AddProduct(Product product)
+        public async Task<HttpResponseMessage> AddProduct(Product product)
         {
             var errors = new List<string>();
             try
@@ -35,7 +44,7 @@ namespace ShopBridge.Controllers
                 if (!string.IsNullOrEmpty(product.ProductName))
                 {
                     db.Products.Add(product);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return Request.CreateResponse(HttpStatusCode.Created, "Product Add Successfully");
                 }
                 else
@@ -51,7 +60,7 @@ namespace ShopBridge.Controllers
             }
         }
         [HttpPut]
-        public HttpResponseMessage UpdateProduct(Product product)
+        public async Task<HttpResponseMessage> UpdateProduct(Product product)
         {
             try
             {
@@ -59,7 +68,7 @@ namespace ShopBridge.Controllers
                 if (productFromDb.Count() > 0)
                 {
                     db.Entry(product).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return Request.CreateResponse(HttpStatusCode.OK, "Product Updated Successfully");
                 }
                 else
@@ -75,15 +84,15 @@ namespace ShopBridge.Controllers
             }
         }
         [HttpDelete]
-        public HttpResponseMessage DeleteProduct(int id)
+        public async Task<HttpResponseMessage> DeleteProduct(int id)
         {
             try
             {
-                Product product = db.Products.Find(id);
+                Product product = await db.Products.FindAsync(id);
                 if (product != null)
                 {
                     db.Products.Remove(product);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return Request.CreateResponse(HttpStatusCode.OK, "Product Deleted Successfully");
                 }
                 else
