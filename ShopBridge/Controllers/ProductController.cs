@@ -14,13 +14,6 @@ namespace ShopBridge.Controllers
     public class ProductController : ApiController
     {
         DataBaseContext db = new DataBaseContext();
-
-        //[HttpGet]
-
-        //public IEnumerable<Product> GetProducts()
-        //{
-        //    return db.Products.ToList();
-        //}
         [HttpGet]
 
         public async Task<IEnumerable<Product>> GetProducts()
