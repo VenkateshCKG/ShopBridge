@@ -13,11 +13,8 @@ using System.Web.Http;
 
 namespace ShopBridge.Controllers
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class ProductController : ApiController
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        DataBaseContext db = new DataBaseContext();
 
         static readonly IProductRepository productRepository = new ProductRepository(new DataBaseContext());
         [HttpGet]

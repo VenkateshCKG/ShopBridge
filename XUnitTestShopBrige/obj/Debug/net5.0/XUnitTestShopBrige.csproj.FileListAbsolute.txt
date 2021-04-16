@@ -110,3 +110,7 @@ D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\obj\Debug\net5.0\XUnitTestSh
 D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\obj\Debug\net5.0\ref\XUnitTestShopBrige.dll
 D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\obj\Debug\net5.0\XUnitTestShopBrige.pdb
 D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\obj\Debug\net5.0\XUnitTestShopBrige.genruntimeconfig.cache
+D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\bin\Debug\net5.0\WebActivatorEx.dll
+D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\bin\Debug\net5.0\Swashbuckle.Core.dll
+D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+D:\VenkateshC\VS\Code\ShopBridge\XUnitTestShopBrige\bin\Debug\net5.0\ShopBridge.xml
