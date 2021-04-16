@@ -48,3 +48,7 @@ D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Release\ShopBridge.csproj.CoreCo
 D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Release\ShopBridge.csproj.CopyComplete
 D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Release\ShopBridge.dll
 D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\obj\Release\ShopBridge.pdb
+D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\bin\ShopBridge.xml
+D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\bin\Microsoft.Web.Infrastructure.dll
+D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\bin\Swashbuckle.Core.dll
+D:\VenkateshC\VS\Code\ShopBridge\ShopBridge\bin\WebActivatorEx.dll
